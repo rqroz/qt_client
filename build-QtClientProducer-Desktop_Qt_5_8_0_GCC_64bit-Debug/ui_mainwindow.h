@@ -227,8 +227,11 @@ public:
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", Q_NULLPTR));
 #ifndef QT_NO_TOOLTIP
-        server_input->setToolTip(QApplication::translate("MainWindow", "<html><head/><body><p>Insert the webserver url to which you want to fetch data.</p></body></html>", Q_NULLPTR));
+        server_input->setToolTip(QApplication::translate("MainWindow", "<html><head/><body><p><br/></p></body></html>", Q_NULLPTR));
 #endif // QT_NO_TOOLTIP
+#ifndef QT_NO_WHATSTHIS
+        server_input->setWhatsThis(QApplication::translate("MainWindow", "<html><head/><body><p><br/></p></body></html>", Q_NULLPTR));
+#endif // QT_NO_WHATSTHIS
         connect_btn->setText(QApplication::translate("MainWindow", "Connect", Q_NULLPTR));
         disconnect_btn->setText(QApplication::translate("MainWindow", "Disconnect", Q_NULLPTR));
         min_label->setText(QApplication::translate("MainWindow", "Min", Q_NULLPTR));

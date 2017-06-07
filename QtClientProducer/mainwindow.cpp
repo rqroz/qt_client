@@ -66,6 +66,7 @@ void MainWindow::initialSetup(){
     changeMaxLCD(0);
     changeMinLCD(0);
     changeTimingOutput(0);
+    this->ui->server_input->setPlaceholderText("www.example.com");
 }
 
 void MainWindow::openConnection(){
