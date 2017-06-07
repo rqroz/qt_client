@@ -4,6 +4,7 @@
 #include <QMessageBox>
 #include <QLCDNumber>
 #include <QString>
+#include <QTcpSocket>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -51,8 +52,16 @@ MainWindow::MainWindow(QWidget *parent) :
             SLOT(changeTimingOutput(int)));
 }
 
+void MainWindow::manageButtonsOnConnection(){
+    bool connected = this->socket->state() == QAbstractSocket::ConnectedState;
+
+    this->ui->connect_btn->setEnabled(!connected);
+    this->ui->disconnect_btn->setEnabled(connected);
+}
+
 MainWindow::~MainWindow()
 {
+    delete socket;
     delete ui;
 }
 
@@ -61,20 +70,34 @@ void MainWindow::styleLCD(QLCDNumber *lcd){
 }
 
 void MainWindow::initialSetup(){
+    this->socket = new QTcpSocket(this);
+    this->ui->server_input->setPlaceholderText("www.example.com");
+
     this->styleLCD(ui->maxlcd_display);
     this->styleLCD(ui->minlcd_display);
+
     changeMaxLCD(0);
     changeMinLCD(0);
     changeTimingOutput(0);
-    this->ui->server_input->setPlaceholderText("www.example.com");
+
+    this->ui->disconnect_btn->setEnabled(false);
 }
 
 void MainWindow::openConnection(){
-    ui->servers_lview->addItem("openConnection");
+    this->socket->connectToHost("127.0.0.1", 1234);
+    if(this->socket->waitForConnected(3*1000)){
+        qDebug() << "Connected";
+    }else{
+        qDebug() << "Could not connect";
+    }
+
+    this->manageButtonsOnConnection();
 }
 
 void MainWindow::closeConnection(){
-    ui->servers_lview->addItem("closeConnection");
+    this->socket->close();
+    this->manageButtonsOnConnection();
+    qDebug() << "Disconnected";
 }
 
 void MainWindow::startSendingData(){

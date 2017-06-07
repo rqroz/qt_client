@@ -12,10 +12,10 @@ MAKEFILE      = Makefile
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
+DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -g -std=gnu++11 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I../QtClientProducer -I. -I/opt/Qt/5.8/gcc_64/include -I/opt/Qt/5.8/gcc_64/include/QtWidgets -I/opt/Qt/5.8/gcc_64/include/QtGui -I/opt/Qt/5.8/gcc_64/include/QtCore -I. -isystem /usr/include/libdrm -I. -I/opt/Qt/5.8/gcc_64/mkspecs/linux-g++
+INCPATH       = -I../QtClientProducer -I. -I/opt/Qt/5.8/gcc_64/include -I/opt/Qt/5.8/gcc_64/include/QtWidgets -I/opt/Qt/5.8/gcc_64/include/QtGui -I/opt/Qt/5.8/gcc_64/include/QtNetwork -I/opt/Qt/5.8/gcc_64/include/QtCore -I. -isystem /usr/include/libdrm -I. -I/opt/Qt/5.8/gcc_64/mkspecs/linux-g++
 QMAKE         = /opt/Qt/5.8/gcc_64/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -36,7 +36,7 @@ DISTNAME      = QtClientProducer1.0.0
 DISTDIR = /root/Desktop/qt_client_consumer/build-QtClientProducer-Desktop_Qt_5_8_0_GCC_64bit-Debug/.tmp/QtClientProducer1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-rpath,/opt/Qt/5.8/gcc_64/lib
-LIBS          = $(SUBLIBS) -L/opt/Qt/5.8/gcc_64/lib -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
+LIBS          = $(SUBLIBS) -L/opt/Qt/5.8/gcc_64/lib -lQt5Widgets -lQt5Gui -lQt5Network -lQt5Core -lGL -lpthread 
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -203,6 +203,7 @@ DIST          = /opt/Qt/5.8/gcc_64/mkspecs/features/spec_pre.prf \
 		/opt/Qt/5.8/gcc_64/mkspecs/features/qt_config.prf \
 		/opt/Qt/5.8/gcc_64/mkspecs/linux-g++/qmake.conf \
 		/opt/Qt/5.8/gcc_64/mkspecs/features/spec_post.prf \
+		../QtClientProducer/.qmake.stash \
 		/opt/Qt/5.8/gcc_64/mkspecs/features/exclusive_builds.prf \
 		/opt/Qt/5.8/gcc_64/mkspecs/features/toolchain.prf \
 		/opt/Qt/5.8/gcc_64/mkspecs/features/default_pre.prf \
@@ -385,6 +386,7 @@ Makefile: ../QtClientProducer/QtClientProducer.pro /opt/Qt/5.8/gcc_64/mkspecs/li
 		/opt/Qt/5.8/gcc_64/mkspecs/features/qt_config.prf \
 		/opt/Qt/5.8/gcc_64/mkspecs/linux-g++/qmake.conf \
 		/opt/Qt/5.8/gcc_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/opt/Qt/5.8/gcc_64/mkspecs/features/exclusive_builds.prf \
 		/opt/Qt/5.8/gcc_64/mkspecs/features/toolchain.prf \
 		/opt/Qt/5.8/gcc_64/mkspecs/features/default_pre.prf \
@@ -407,6 +409,7 @@ Makefile: ../QtClientProducer/QtClientProducer.pro /opt/Qt/5.8/gcc_64/mkspecs/li
 		../QtClientProducer/QtClientProducer.pro \
 		/opt/Qt/5.8/gcc_64/lib/libQt5Widgets.prl \
 		/opt/Qt/5.8/gcc_64/lib/libQt5Gui.prl \
+		/opt/Qt/5.8/gcc_64/lib/libQt5Network.prl \
 		/opt/Qt/5.8/gcc_64/lib/libQt5Core.prl
 	$(QMAKE) -o Makefile ../QtClientProducer/QtClientProducer.pro -spec linux-g++ CONFIG+=debug CONFIG+=qml_debug
 /opt/Qt/5.8/gcc_64/mkspecs/features/spec_pre.prf:
@@ -559,6 +562,7 @@ Makefile: ../QtClientProducer/QtClientProducer.pro /opt/Qt/5.8/gcc_64/mkspecs/li
 /opt/Qt/5.8/gcc_64/mkspecs/features/qt_config.prf:
 /opt/Qt/5.8/gcc_64/mkspecs/linux-g++/qmake.conf:
 /opt/Qt/5.8/gcc_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /opt/Qt/5.8/gcc_64/mkspecs/features/exclusive_builds.prf:
 /opt/Qt/5.8/gcc_64/mkspecs/features/toolchain.prf:
 /opt/Qt/5.8/gcc_64/mkspecs/features/default_pre.prf:
@@ -581,6 +585,7 @@ Makefile: ../QtClientProducer/QtClientProducer.pro /opt/Qt/5.8/gcc_64/mkspecs/li
 ../QtClientProducer/QtClientProducer.pro:
 /opt/Qt/5.8/gcc_64/lib/libQt5Widgets.prl:
 /opt/Qt/5.8/gcc_64/lib/libQt5Gui.prl:
+/opt/Qt/5.8/gcc_64/lib/libQt5Network.prl:
 /opt/Qt/5.8/gcc_64/lib/libQt5Core.prl:
 qmake: FORCE
 	@$(QMAKE) -o Makefile ../QtClientProducer/QtClientProducer.pro -spec linux-g++ CONFIG+=debug CONFIG+=qml_debug
@@ -738,10 +743,19 @@ moc_mainwindow.cpp: /opt/Qt/5.8/gcc_64/include/QtWidgets/QMainWindow \
 		/opt/Qt/5.8/gcc_64/include/QtGui/qtouchdevice.h \
 		/opt/Qt/5.8/gcc_64/include/QtWidgets/qtabwidget.h \
 		/opt/Qt/5.8/gcc_64/include/QtGui/qicon.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/QLCDNumber \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qlcdnumber.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qframe.h \
+		/opt/Qt/5.8/gcc_64/include/QtNetwork/QTcpSocket \
+		/opt/Qt/5.8/gcc_64/include/QtNetwork/qtcpsocket.h \
+		/opt/Qt/5.8/gcc_64/include/QtNetwork/qtnetworkglobal.h \
+		/opt/Qt/5.8/gcc_64/include/QtNetwork/qtnetwork-config.h \
+		/opt/Qt/5.8/gcc_64/include/QtNetwork/qabstractsocket.h \
+		/opt/Qt/5.8/gcc_64/include/QtCore/QDebug \
 		../QtClientProducer/mainwindow.h \
 		moc_predefs.h \
 		/opt/Qt/5.8/gcc_64/bin/moc
-	/opt/Qt/5.8/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.8/gcc_64/mkspecs/linux-g++ -I/root/Desktop/qt_client_consumer/QtClientProducer -I/opt/Qt/5.8/gcc_64/include -I/opt/Qt/5.8/gcc_64/include/QtWidgets -I/opt/Qt/5.8/gcc_64/include/QtGui -I/opt/Qt/5.8/gcc_64/include/QtCore -I. -I/usr/include/c++/6 -I/usr/include/x86_64-linux-gnu/c++/6 -I/usr/include/c++/6/backward -I/usr/lib/gcc/x86_64-linux-gnu/6/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../QtClientProducer/mainwindow.h -o moc_mainwindow.cpp
+	/opt/Qt/5.8/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.8/gcc_64/mkspecs/linux-g++ -I/root/Desktop/qt_client_consumer/QtClientProducer -I/opt/Qt/5.8/gcc_64/include -I/opt/Qt/5.8/gcc_64/include/QtWidgets -I/opt/Qt/5.8/gcc_64/include/QtGui -I/opt/Qt/5.8/gcc_64/include/QtNetwork -I/opt/Qt/5.8/gcc_64/include/QtCore -I. -I/usr/include/c++/6 -I/usr/include/x86_64-linux-gnu/c++/6 -I/usr/include/c++/6/backward -I/usr/lib/gcc/x86_64-linux-gnu/6/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../QtClientProducer/mainwindow.h -o moc_mainwindow.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -867,6 +881,15 @@ main.o: ../QtClientProducer/main.cpp ../QtClientProducer/mainwindow.h \
 		/opt/Qt/5.8/gcc_64/include/QtGui/qtouchdevice.h \
 		/opt/Qt/5.8/gcc_64/include/QtWidgets/qtabwidget.h \
 		/opt/Qt/5.8/gcc_64/include/QtGui/qicon.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/QLCDNumber \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qlcdnumber.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qframe.h \
+		/opt/Qt/5.8/gcc_64/include/QtNetwork/QTcpSocket \
+		/opt/Qt/5.8/gcc_64/include/QtNetwork/qtcpsocket.h \
+		/opt/Qt/5.8/gcc_64/include/QtNetwork/qtnetworkglobal.h \
+		/opt/Qt/5.8/gcc_64/include/QtNetwork/qtnetwork-config.h \
+		/opt/Qt/5.8/gcc_64/include/QtNetwork/qabstractsocket.h \
+		/opt/Qt/5.8/gcc_64/include/QtCore/QDebug \
 		/opt/Qt/5.8/gcc_64/include/QtWidgets/QApplication \
 		/opt/Qt/5.8/gcc_64/include/QtWidgets/qapplication.h \
 		/opt/Qt/5.8/gcc_64/include/QtCore/qcoreapplication.h \
@@ -981,7 +1004,78 @@ mainwindow.o: ../QtClientProducer/mainwindow.cpp ../QtClientProducer/mainwindow.
 		/opt/Qt/5.8/gcc_64/include/QtGui/qtouchdevice.h \
 		/opt/Qt/5.8/gcc_64/include/QtWidgets/qtabwidget.h \
 		/opt/Qt/5.8/gcc_64/include/QtGui/qicon.h \
-		ui_mainwindow.h
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/QLCDNumber \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qlcdnumber.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qframe.h \
+		/opt/Qt/5.8/gcc_64/include/QtNetwork/QTcpSocket \
+		/opt/Qt/5.8/gcc_64/include/QtNetwork/qtcpsocket.h \
+		/opt/Qt/5.8/gcc_64/include/QtNetwork/qtnetworkglobal.h \
+		/opt/Qt/5.8/gcc_64/include/QtNetwork/qtnetwork-config.h \
+		/opt/Qt/5.8/gcc_64/include/QtNetwork/qabstractsocket.h \
+		/opt/Qt/5.8/gcc_64/include/QtCore/QDebug \
+		ui_mainwindow.h \
+		/opt/Qt/5.8/gcc_64/include/QtCore/QVariant \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/QAction \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qaction.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qactiongroup.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/QApplication \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qapplication.h \
+		/opt/Qt/5.8/gcc_64/include/QtCore/qcoreapplication.h \
+		/opt/Qt/5.8/gcc_64/include/QtCore/qeventloop.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		/opt/Qt/5.8/gcc_64/include/QtGui/qguiapplication.h \
+		/opt/Qt/5.8/gcc_64/include/QtGui/qinputmethod.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/QButtonGroup \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qbuttongroup.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/QHBoxLayout \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qboxlayout.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qlayout.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qlayoutitem.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qgridlayout.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/QHeaderView \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qheaderview.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qabstractitemview.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/opt/Qt/5.8/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/opt/Qt/5.8/gcc_64/include/QtCore/qitemselectionmodel.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qstyleoption.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		/opt/Qt/5.8/gcc_64/include/QtGui/qvalidator.h \
+		/opt/Qt/5.8/gcc_64/include/QtCore/qregularexpression.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qslider.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qabstractslider.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qstyle.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qtabbar.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qrubberband.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/QLabel \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qlabel.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/QLineEdit \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qlineedit.h \
+		/opt/Qt/5.8/gcc_64/include/QtGui/qtextcursor.h \
+		/opt/Qt/5.8/gcc_64/include/QtGui/qtextformat.h \
+		/opt/Qt/5.8/gcc_64/include/QtGui/qpen.h \
+		/opt/Qt/5.8/gcc_64/include/QtGui/qtextoption.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/QListWidget \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qlistwidget.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qlistview.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/QMenuBar \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qmenubar.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qmenu.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/QPushButton \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qpushbutton.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qabstractbutton.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/QSlider \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/QStatusBar \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qstatusbar.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/QToolBar \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qtoolbar.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/QVBoxLayout \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/QWidget \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/QMessageBox \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qmessagebox.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qdialog.h \
+		/opt/Qt/5.8/gcc_64/include/QtCore/QString
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../QtClientProducer/mainwindow.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 

@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include <QLCDNumber>
+#include <QTcpSocket>
+#include <QDebug>
 
 namespace Ui {
 class MainWindow;
@@ -27,9 +29,11 @@ public slots:
 
 private:
     Ui::MainWindow *ui;
+    QTcpSocket *socket;
     int slider_offset;
     void styleLCD(QLCDNumber *);
     void initialSetup();
+    void manageButtonsOnConnection();
 };
 
 #endif // MAINWINDOW_H
