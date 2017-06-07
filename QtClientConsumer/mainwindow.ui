@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QHBoxLayout" name="horizontalLayout_6">
+   <layout class="QVBoxLayout" name="verticalLayout_5">
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_5">
       <item>
@@ -24,7 +24,7 @@
           <item>
            <widget class="QLabel" name="server_label">
             <property name="text">
-             <string>server IP:</string>
+             <string>Server IP:</string>
             </property>
            </widget>
           </item>
@@ -94,16 +94,16 @@
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_4">
             <item>
-             <widget class="QSlider" name="timing_input">
+             <widget class="QSlider" name="timing_slider">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QLabel" name="timingval_label">
+             <widget class="QLabel" name="timing_output">
               <property name="text">
-               <string>1</string>
+               <string>-</string>
               </property>
              </widget>
             </item>
@@ -114,16 +114,16 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
-           <widget class="QPushButton" name="stop_btn">
+           <widget class="QPushButton" name="start_btn">
             <property name="text">
-             <string>Stop</string>
+             <string>Start</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="start_btn">
+           <widget class="QPushButton" name="stop_btn">
             <property name="text">
-             <string>Start</string>
+             <string>Stop</string>
             </property>
            </widget>
           </item>

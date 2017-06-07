@@ -16,31 +16,120 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout_3">
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_6">
+     <layout class="QHBoxLayout" name="horizontalLayout_7">
       <item>
-       <layout class="QVBoxLayout" name="verticalLayout_2">
+       <layout class="QHBoxLayout" name="horizontalLayout_6">
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout">
+         <layout class="QVBoxLayout" name="verticalLayout_2">
           <item>
-           <widget class="QLineEdit" name="server_input">
-            <property name="toolTip">
-             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Insert the webserver url to which you want to fetch data.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout">
+           <layout class="QVBoxLayout" name="verticalLayout">
             <item>
-             <widget class="QPushButton" name="connect_btn">
-              <property name="text">
-               <string>Connect</string>
+             <widget class="QLineEdit" name="server_input">
+              <property name="toolTip">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Insert the webserver url to which you want to fetch data.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="disconnect_btn">
+             <layout class="QHBoxLayout" name="horizontalLayout">
+              <item>
+               <widget class="QPushButton" name="connect_btn">
+                <property name="text">
+                 <string>Connect</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="disconnect_btn">
+                <property name="text">
+                 <string>Disconnect</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_5">
+            <item>
+             <widget class="QLabel" name="min_label">
               <property name="text">
-               <string>Disconnect</string>
+               <string>Min</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QSlider" name="min_slider">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLCDNumber" name="minlcd_display"/>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_4">
+            <item>
+             <widget class="QLabel" name="max_label">
+              <property name="text">
+               <string>Max</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QSlider" name="max_slider">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLCDNumber" name="maxlcd_display"/>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_2">
+            <item>
+             <widget class="QLabel" name="timing_label">
+              <property name="text">
+               <string>Timing</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QSlider" name="timing_slider">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="timing_output">
+              <property name="text">
+               <string>1s</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_3">
+            <item>
+             <widget class="QPushButton" name="start_btn">
+              <property name="text">
+               <string>Start</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="stop_btn">
+              <property name="text">
+               <string>Stop</string>
               </property>
              </widget>
             </item>
@@ -48,117 +137,14 @@
           </item>
          </layout>
         </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_5">
-          <item>
-           <widget class="QLabel" name="min_label">
-            <property name="text">
-             <string>Min</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QSlider" name="min_slider">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLCDNumber" name="minlcd_display"/>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_4">
-          <item>
-           <widget class="QLabel" name="max_label">
-            <property name="text">
-             <string>Max</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QSlider" name="max_slider">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLCDNumber" name="maxlcd_display"/>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_2">
-          <item>
-           <widget class="QLabel" name="timing_label">
-            <property name="text">
-             <string>Timing</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QSlider" name="timing_slider">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="timing_output">
-            <property name="text">
-             <string>1</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_3">
-          <item>
-           <widget class="QPushButton" name="start_btn">
-            <property name="text">
-             <string>Start</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QPushButton" name="stop_btn">
-            <property name="text">
-             <string>Stop</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
        </layout>
       </item>
       <item>
-       <widget class="QListView" name="output_lview"/>
+       <widget class="QListWidget" name="servers_lview"/>
       </item>
      </layout>
     </item>
    </layout>
-   <zorder>output_lview</zorder>
-   <zorder>connect_btn</zorder>
-   <zorder>disconnect_btn</zorder>
-   <zorder>start_btn</zorder>
-   <zorder>stop_btn</zorder>
-   <zorder>min_slider</zorder>
-   <zorder>max_slider</zorder>
-   <zorder>timing_slider</zorder>
-   <zorder>min_label</zorder>
-   <zorder>timing_label</zorder>
-   <zorder>timing_output</zorder>
-   <zorder>max_label</zorder>
-   <zorder>server_input</zorder>
-   <zorder>minlcd_display</zorder>
-   <zorder>maxlcd_display</zorder>
-   <zorder>verticalSpacer</zorder>
-   <zorder>verticalSpacer_2</zorder>
-   <zorder>min_label</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

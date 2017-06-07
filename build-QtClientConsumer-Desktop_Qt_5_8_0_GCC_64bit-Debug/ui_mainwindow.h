@@ -35,7 +35,7 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralWidget;
-    QHBoxLayout *horizontalLayout_6;
+    QVBoxLayout *verticalLayout_5;
     QHBoxLayout *horizontalLayout_5;
     QVBoxLayout *verticalLayout_4;
     QVBoxLayout *verticalLayout_2;
@@ -52,11 +52,11 @@ public:
     QVBoxLayout *verticalLayout_3;
     QLabel *timing_label;
     QHBoxLayout *horizontalLayout_4;
-    QSlider *timing_input;
-    QLabel *timingval_label;
+    QSlider *timing_slider;
+    QLabel *timing_output;
     QHBoxLayout *horizontalLayout_2;
-    QPushButton *stop_btn;
     QPushButton *start_btn;
+    QPushButton *stop_btn;
     QGraphicsView *graph_obj;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
@@ -69,10 +69,10 @@ public:
         MainWindow->resize(676, 517);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        horizontalLayout_6 = new QHBoxLayout(centralWidget);
-        horizontalLayout_6->setSpacing(6);
-        horizontalLayout_6->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout_6->setObjectName(QStringLiteral("horizontalLayout_6"));
+        verticalLayout_5 = new QVBoxLayout(centralWidget);
+        verticalLayout_5->setSpacing(6);
+        verticalLayout_5->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_5->setObjectName(QStringLiteral("verticalLayout_5"));
         horizontalLayout_5 = new QHBoxLayout();
         horizontalLayout_5->setSpacing(6);
         horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
@@ -148,16 +148,16 @@ public:
         horizontalLayout_4 = new QHBoxLayout();
         horizontalLayout_4->setSpacing(6);
         horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
-        timing_input = new QSlider(centralWidget);
-        timing_input->setObjectName(QStringLiteral("timing_input"));
-        timing_input->setOrientation(Qt::Horizontal);
+        timing_slider = new QSlider(centralWidget);
+        timing_slider->setObjectName(QStringLiteral("timing_slider"));
+        timing_slider->setOrientation(Qt::Horizontal);
 
-        horizontalLayout_4->addWidget(timing_input);
+        horizontalLayout_4->addWidget(timing_slider);
 
-        timingval_label = new QLabel(centralWidget);
-        timingval_label->setObjectName(QStringLiteral("timingval_label"));
+        timing_output = new QLabel(centralWidget);
+        timing_output->setObjectName(QStringLiteral("timing_output"));
 
-        horizontalLayout_4->addWidget(timingval_label);
+        horizontalLayout_4->addWidget(timing_output);
 
 
         verticalLayout_3->addLayout(horizontalLayout_4);
@@ -168,15 +168,15 @@ public:
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setSpacing(6);
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
-        stop_btn = new QPushButton(centralWidget);
-        stop_btn->setObjectName(QStringLiteral("stop_btn"));
-
-        horizontalLayout_2->addWidget(stop_btn);
-
         start_btn = new QPushButton(centralWidget);
         start_btn->setObjectName(QStringLiteral("start_btn"));
 
         horizontalLayout_2->addWidget(start_btn);
+
+        stop_btn = new QPushButton(centralWidget);
+        stop_btn->setObjectName(QStringLiteral("stop_btn"));
+
+        horizontalLayout_2->addWidget(stop_btn);
 
 
         verticalLayout_4->addLayout(horizontalLayout_2);
@@ -191,7 +191,7 @@ public:
         horizontalLayout_5->addWidget(graph_obj);
 
 
-        horizontalLayout_6->addLayout(horizontalLayout_5);
+        verticalLayout_5->addLayout(horizontalLayout_5);
 
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
@@ -218,9 +218,9 @@ public:
         disconnect_btn->setText(QApplication::translate("MainWindow", "Disconnect", Q_NULLPTR));
         update_btn->setText(QApplication::translate("MainWindow", "update", Q_NULLPTR));
         timing_label->setText(QApplication::translate("MainWindow", "Timing", Q_NULLPTR));
-        timingval_label->setText(QApplication::translate("MainWindow", "1", Q_NULLPTR));
-        stop_btn->setText(QApplication::translate("MainWindow", "Stop", Q_NULLPTR));
+        timing_output->setText(QApplication::translate("MainWindow", "-", Q_NULLPTR));
         start_btn->setText(QApplication::translate("MainWindow", "Start", Q_NULLPTR));
+        stop_btn->setText(QApplication::translate("MainWindow", "Stop", Q_NULLPTR));
     } // retranslateUi
 
 };

@@ -18,7 +18,7 @@
 #include <QtWidgets/QLCDNumber>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
-#include <QtWidgets/QListView>
+#include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
@@ -35,6 +35,7 @@ class Ui_MainWindow
 public:
     QWidget *centralWidget;
     QVBoxLayout *verticalLayout_3;
+    QHBoxLayout *horizontalLayout_7;
     QHBoxLayout *horizontalLayout_6;
     QVBoxLayout *verticalLayout_2;
     QVBoxLayout *verticalLayout;
@@ -57,7 +58,7 @@ public:
     QHBoxLayout *horizontalLayout_3;
     QPushButton *start_btn;
     QPushButton *stop_btn;
-    QListView *output_lview;
+    QListWidget *servers_lview;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -73,6 +74,9 @@ public:
         verticalLayout_3->setSpacing(6);
         verticalLayout_3->setContentsMargins(11, 11, 11, 11);
         verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
+        horizontalLayout_7 = new QHBoxLayout();
+        horizontalLayout_7->setSpacing(6);
+        horizontalLayout_7->setObjectName(QStringLiteral("horizontalLayout_7"));
         horizontalLayout_6 = new QHBoxLayout();
         horizontalLayout_6->setSpacing(6);
         horizontalLayout_6->setObjectName(QStringLiteral("horizontalLayout_6"));
@@ -191,31 +195,18 @@ public:
 
         horizontalLayout_6->addLayout(verticalLayout_2);
 
-        output_lview = new QListView(centralWidget);
-        output_lview->setObjectName(QStringLiteral("output_lview"));
 
-        horizontalLayout_6->addWidget(output_lview);
+        horizontalLayout_7->addLayout(horizontalLayout_6);
+
+        servers_lview = new QListWidget(centralWidget);
+        servers_lview->setObjectName(QStringLiteral("servers_lview"));
+
+        horizontalLayout_7->addWidget(servers_lview);
 
 
-        verticalLayout_3->addLayout(horizontalLayout_6);
+        verticalLayout_3->addLayout(horizontalLayout_7);
 
         MainWindow->setCentralWidget(centralWidget);
-        output_lview->raise();
-        connect_btn->raise();
-        disconnect_btn->raise();
-        start_btn->raise();
-        stop_btn->raise();
-        min_slider->raise();
-        max_slider->raise();
-        timing_slider->raise();
-        min_label->raise();
-        timing_label->raise();
-        timing_output->raise();
-        max_label->raise();
-        server_input->raise();
-        minlcd_display->raise();
-        maxlcd_display->raise();
-        min_label->raise();
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
         menuBar->setGeometry(QRect(0, 0, 482, 25));
@@ -243,7 +234,7 @@ public:
         min_label->setText(QApplication::translate("MainWindow", "Min", Q_NULLPTR));
         max_label->setText(QApplication::translate("MainWindow", "Max", Q_NULLPTR));
         timing_label->setText(QApplication::translate("MainWindow", "Timing", Q_NULLPTR));
-        timing_output->setText(QApplication::translate("MainWindow", "1", Q_NULLPTR));
+        timing_output->setText(QApplication::translate("MainWindow", "1s", Q_NULLPTR));
         start_btn->setText(QApplication::translate("MainWindow", "Start", Q_NULLPTR));
         stop_btn->setText(QApplication::translate("MainWindow", "Stop", Q_NULLPTR));
     } // retranslateUi
