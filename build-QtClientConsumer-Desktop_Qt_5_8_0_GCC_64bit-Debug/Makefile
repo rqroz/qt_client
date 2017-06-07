@@ -12,10 +12,10 @@ MAKEFILE      = Makefile
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
+DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -g -std=gnu++11 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I../QtClientConsumer -I. -I/opt/Qt/5.8/gcc_64/include -I/opt/Qt/5.8/gcc_64/include/QtWidgets -I/opt/Qt/5.8/gcc_64/include/QtGui -I/opt/Qt/5.8/gcc_64/include/QtCore -I. -isystem /usr/include/libdrm -I. -I/opt/Qt/5.8/gcc_64/mkspecs/linux-g++
+INCPATH       = -I../QtClientConsumer -I. -I/opt/Qt/5.8/gcc_64/include -I/opt/Qt/5.8/gcc_64/include/QtWidgets -I/opt/Qt/5.8/gcc_64/include/QtGui -I/opt/Qt/5.8/gcc_64/include/QtNetwork -I/opt/Qt/5.8/gcc_64/include/QtCore -I. -isystem /usr/include/libdrm -I. -I/opt/Qt/5.8/gcc_64/mkspecs/linux-g++
 QMAKE         = /opt/Qt/5.8/gcc_64/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -36,7 +36,7 @@ DISTNAME      = QtClientConsumer1.0.0
 DISTDIR = /root/Desktop/qt_client_consumer/build-QtClientConsumer-Desktop_Qt_5_8_0_GCC_64bit-Debug/.tmp/QtClientConsumer1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-rpath,/opt/Qt/5.8/gcc_64/lib
-LIBS          = $(SUBLIBS) -L/opt/Qt/5.8/gcc_64/lib -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
+LIBS          = $(SUBLIBS) -L/opt/Qt/5.8/gcc_64/lib -lQt5Widgets -lQt5Gui -lQt5Network -lQt5Core -lGL -lpthread 
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -409,6 +409,7 @@ Makefile: ../QtClientConsumer/QtClientConsumer.pro /opt/Qt/5.8/gcc_64/mkspecs/li
 		../QtClientConsumer/QtClientConsumer.pro \
 		/opt/Qt/5.8/gcc_64/lib/libQt5Widgets.prl \
 		/opt/Qt/5.8/gcc_64/lib/libQt5Gui.prl \
+		/opt/Qt/5.8/gcc_64/lib/libQt5Network.prl \
 		/opt/Qt/5.8/gcc_64/lib/libQt5Core.prl
 	$(QMAKE) -o Makefile ../QtClientConsumer/QtClientConsumer.pro -spec linux-g++ CONFIG+=debug CONFIG+=qml_debug
 /opt/Qt/5.8/gcc_64/mkspecs/features/spec_pre.prf:
@@ -584,6 +585,7 @@ Makefile: ../QtClientConsumer/QtClientConsumer.pro /opt/Qt/5.8/gcc_64/mkspecs/li
 ../QtClientConsumer/QtClientConsumer.pro:
 /opt/Qt/5.8/gcc_64/lib/libQt5Widgets.prl:
 /opt/Qt/5.8/gcc_64/lib/libQt5Gui.prl:
+/opt/Qt/5.8/gcc_64/lib/libQt5Network.prl:
 /opt/Qt/5.8/gcc_64/lib/libQt5Core.prl:
 qmake: FORCE
 	@$(QMAKE) -o Makefile ../QtClientConsumer/QtClientConsumer.pro -spec linux-g++ CONFIG+=debug CONFIG+=qml_debug
@@ -744,7 +746,7 @@ moc_mainwindow.cpp: /opt/Qt/5.8/gcc_64/include/QtWidgets/QMainWindow \
 		../QtClientConsumer/mainwindow.h \
 		moc_predefs.h \
 		/opt/Qt/5.8/gcc_64/bin/moc
-	/opt/Qt/5.8/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.8/gcc_64/mkspecs/linux-g++ -I/root/Desktop/qt_client_consumer/QtClientConsumer -I/opt/Qt/5.8/gcc_64/include -I/opt/Qt/5.8/gcc_64/include/QtWidgets -I/opt/Qt/5.8/gcc_64/include/QtGui -I/opt/Qt/5.8/gcc_64/include/QtCore -I. -I/usr/include/c++/6 -I/usr/include/x86_64-linux-gnu/c++/6 -I/usr/include/c++/6/backward -I/usr/lib/gcc/x86_64-linux-gnu/6/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../QtClientConsumer/mainwindow.h -o moc_mainwindow.cpp
+	/opt/Qt/5.8/gcc_64/bin/moc $(DEFINES) --include ./moc_predefs.h -I/opt/Qt/5.8/gcc_64/mkspecs/linux-g++ -I/root/Desktop/qt_client_consumer/QtClientConsumer -I/opt/Qt/5.8/gcc_64/include -I/opt/Qt/5.8/gcc_64/include/QtWidgets -I/opt/Qt/5.8/gcc_64/include/QtGui -I/opt/Qt/5.8/gcc_64/include/QtNetwork -I/opt/Qt/5.8/gcc_64/include/QtCore -I. -I/usr/include/c++/6 -I/usr/include/x86_64-linux-gnu/c++/6 -I/usr/include/c++/6/backward -I/usr/lib/gcc/x86_64-linux-gnu/6/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/6/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../QtClientConsumer/mainwindow.h -o moc_mainwindow.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -1048,7 +1050,8 @@ mainwindow.o: ../QtClientConsumer/mainwindow.cpp ../QtClientConsumer/mainwindow.
 		/opt/Qt/5.8/gcc_64/include/QtWidgets/QToolBar \
 		/opt/Qt/5.8/gcc_64/include/QtWidgets/qtoolbar.h \
 		/opt/Qt/5.8/gcc_64/include/QtWidgets/QVBoxLayout \
-		/opt/Qt/5.8/gcc_64/include/QtWidgets/QWidget
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/QWidget \
+		/opt/Qt/5.8/gcc_64/include/QtCore/QString
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../QtClientConsumer/mainwindow.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 

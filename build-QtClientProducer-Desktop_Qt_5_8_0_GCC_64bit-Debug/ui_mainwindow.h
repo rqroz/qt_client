@@ -36,10 +36,11 @@ public:
     QWidget *centralWidget;
     QVBoxLayout *verticalLayout_3;
     QHBoxLayout *horizontalLayout_7;
-    QHBoxLayout *horizontalLayout_6;
     QVBoxLayout *verticalLayout_2;
     QVBoxLayout *verticalLayout;
+    QHBoxLayout *horizontalLayout_6;
     QLineEdit *server_input;
+    QLineEdit *port_input;
     QHBoxLayout *horizontalLayout;
     QPushButton *connect_btn;
     QPushButton *disconnect_btn;
@@ -67,7 +68,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(482, 365);
+        MainWindow->resize(545, 300);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         verticalLayout_3 = new QVBoxLayout(centralWidget);
@@ -77,19 +78,30 @@ public:
         horizontalLayout_7 = new QHBoxLayout();
         horizontalLayout_7->setSpacing(6);
         horizontalLayout_7->setObjectName(QStringLiteral("horizontalLayout_7"));
-        horizontalLayout_6 = new QHBoxLayout();
-        horizontalLayout_6->setSpacing(6);
-        horizontalLayout_6->setObjectName(QStringLiteral("horizontalLayout_6"));
         verticalLayout_2 = new QVBoxLayout();
         verticalLayout_2->setSpacing(6);
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
         verticalLayout = new QVBoxLayout();
         verticalLayout->setSpacing(6);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        horizontalLayout_6 = new QHBoxLayout();
+        horizontalLayout_6->setSpacing(6);
+        horizontalLayout_6->setObjectName(QStringLiteral("horizontalLayout_6"));
         server_input = new QLineEdit(centralWidget);
         server_input->setObjectName(QStringLiteral("server_input"));
+        server_input->setMinimumSize(QSize(125, 0));
 
-        verticalLayout->addWidget(server_input);
+        horizontalLayout_6->addWidget(server_input);
+
+        port_input = new QLineEdit(centralWidget);
+        port_input->setObjectName(QStringLiteral("port_input"));
+        port_input->setMinimumSize(QSize(71, 0));
+        port_input->setMaximumSize(QSize(71, 16777215));
+
+        horizontalLayout_6->addWidget(port_input);
+
+
+        verticalLayout->addLayout(horizontalLayout_6);
 
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setSpacing(6);
@@ -193,10 +205,7 @@ public:
         verticalLayout_2->addLayout(horizontalLayout_3);
 
 
-        horizontalLayout_6->addLayout(verticalLayout_2);
-
-
-        horizontalLayout_7->addLayout(horizontalLayout_6);
+        horizontalLayout_7->addLayout(verticalLayout_2);
 
         servers_lview = new QListWidget(centralWidget);
         servers_lview->setObjectName(QStringLiteral("servers_lview"));
@@ -209,7 +218,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 482, 25));
+        menuBar->setGeometry(QRect(0, 0, 545, 25));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));

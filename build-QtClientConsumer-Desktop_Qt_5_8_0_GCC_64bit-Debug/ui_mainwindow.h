@@ -35,12 +35,14 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralWidget;
-    QVBoxLayout *verticalLayout_5;
-    QHBoxLayout *horizontalLayout_5;
+    QHBoxLayout *horizontalLayout_7;
+    QHBoxLayout *horizontalLayout_6;
     QVBoxLayout *verticalLayout_4;
     QVBoxLayout *verticalLayout_2;
     QLabel *server_label;
+    QHBoxLayout *horizontalLayout_5;
     QLineEdit *server_input;
+    QLineEdit *port_input;
     QHBoxLayout *horizontalLayout;
     QPushButton *connect_btn;
     QPushButton *disconnect_btn;
@@ -69,13 +71,13 @@ public:
         MainWindow->resize(676, 517);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        verticalLayout_5 = new QVBoxLayout(centralWidget);
-        verticalLayout_5->setSpacing(6);
-        verticalLayout_5->setContentsMargins(11, 11, 11, 11);
-        verticalLayout_5->setObjectName(QStringLiteral("verticalLayout_5"));
-        horizontalLayout_5 = new QHBoxLayout();
-        horizontalLayout_5->setSpacing(6);
-        horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
+        horizontalLayout_7 = new QHBoxLayout(centralWidget);
+        horizontalLayout_7->setSpacing(6);
+        horizontalLayout_7->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_7->setObjectName(QStringLiteral("horizontalLayout_7"));
+        horizontalLayout_6 = new QHBoxLayout();
+        horizontalLayout_6->setSpacing(6);
+        horizontalLayout_6->setObjectName(QStringLiteral("horizontalLayout_6"));
         verticalLayout_4 = new QVBoxLayout();
         verticalLayout_4->setSpacing(6);
         verticalLayout_4->setObjectName(QStringLiteral("verticalLayout_4"));
@@ -87,10 +89,23 @@ public:
 
         verticalLayout_2->addWidget(server_label);
 
+        horizontalLayout_5 = new QHBoxLayout();
+        horizontalLayout_5->setSpacing(6);
+        horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
         server_input = new QLineEdit(centralWidget);
         server_input->setObjectName(QStringLiteral("server_input"));
 
-        verticalLayout_2->addWidget(server_input);
+        horizontalLayout_5->addWidget(server_input);
+
+        port_input = new QLineEdit(centralWidget);
+        port_input->setObjectName(QStringLiteral("port_input"));
+        port_input->setMinimumSize(QSize(71, 28));
+        port_input->setMaximumSize(QSize(71, 28));
+
+        horizontalLayout_5->addWidget(port_input);
+
+
+        verticalLayout_2->addLayout(horizontalLayout_5);
 
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setSpacing(6);
@@ -182,16 +197,16 @@ public:
         verticalLayout_4->addLayout(horizontalLayout_2);
 
 
-        horizontalLayout_5->addLayout(verticalLayout_4);
+        horizontalLayout_6->addLayout(verticalLayout_4);
 
         graph_obj = new QGraphicsView(centralWidget);
         graph_obj->setObjectName(QStringLiteral("graph_obj"));
         graph_obj->setMinimumSize(QSize(430, 430));
 
-        horizontalLayout_5->addWidget(graph_obj);
+        horizontalLayout_6->addWidget(graph_obj);
 
 
-        verticalLayout_5->addLayout(horizontalLayout_5);
+        horizontalLayout_7->addLayout(horizontalLayout_6);
 
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
@@ -213,7 +228,7 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", Q_NULLPTR));
-        server_label->setText(QApplication::translate("MainWindow", "server IP:", Q_NULLPTR));
+        server_label->setText(QApplication::translate("MainWindow", "Server IP:", Q_NULLPTR));
         connect_btn->setText(QApplication::translate("MainWindow", "Connect", Q_NULLPTR));
         disconnect_btn->setText(QApplication::translate("MainWindow", "Disconnect", Q_NULLPTR));
         update_btn->setText(QApplication::translate("MainWindow", "update", Q_NULLPTR));

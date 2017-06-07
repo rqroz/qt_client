@@ -4,7 +4,7 @@
 #include <QMainWindow>
 #include <QLCDNumber>
 #include <QTcpSocket>
-#include <QDebug>
+#include <QSlider>
 
 namespace Ui {
 class MainWindow;
@@ -16,6 +16,13 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = 0);
+
+    bool isConnected();
+    void styleLCD(QLCDNumber *);
+    void initialSetup();
+    void manageButtonsOnConnection();
+    void setSliderDefaults(QSlider *);
+
     ~MainWindow();
 
 public slots:
@@ -27,13 +34,11 @@ public slots:
     void changeMaxLCD(int);
     void changeTimingOutput(int);
 
+
 private:
     Ui::MainWindow *ui;
     QTcpSocket *socket;
     int slider_offset;
-    void styleLCD(QLCDNumber *);
-    void initialSetup();
-    void manageButtonsOnConnection();
 };
 
 #endif // MAINWINDOW_H
