@@ -7,16 +7,18 @@
 #include <QTcpSocket>
 #include <QDateTime>
 #include <QSlider>
+#include <QTimer>
 
-MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow)
-{
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow){
     ui->setupUi(this);
     ui->servers_lview->setSpacing(5);
 
-    this->slider_offset = 1;
     this->initialSetup();
+
+    connect(this->timer,
+            SIGNAL(timeout()),
+            this,
+            SLOT(sendData()));
 
     connect(ui->connect_btn,
             SIGNAL(clicked(bool)),
@@ -68,12 +70,6 @@ void MainWindow::manageButtonsOnConnection(){
     this->ui->stop_btn->setEnabled(false);
 }
 
-MainWindow::~MainWindow()
-{
-    delete socket;
-    delete ui;
-}
-
 void MainWindow::styleLCD(QLCDNumber *lcd){
     lcd->setSegmentStyle(QLCDNumber::Flat);
 }
@@ -83,9 +79,11 @@ void MainWindow::setSliderDefaults(QSlider *qsl){
     qsl->setMaximum(qsl->maximum()+this->slider_offset);
 }
 
-
 void MainWindow::initialSetup(){
+    this->slider_offset = 1;
+    this->timer = new QTimer(this);
     this->socket = new QTcpSocket(this);
+
     this->ui->server_input->setPlaceholderText("www.example.com");
     this->ui->server_input->setText("127.0.0.1");
     this->ui->port_input->setPlaceholderText("port");
@@ -140,36 +138,41 @@ void MainWindow::openConnection(){
 void MainWindow::closeConnection(){
     this->socket->close();
     this->manageButtonsOnConnection();
-    qDebug() << "Disconnected";
+    qDebug() << "Disconnected.";
+}
+
+void MainWindow::sendData(){
+    int randomValue = qrand() % this->ui->max_slider->value() + this->ui->min_slider->value();
+
+    QString str;
+    str = "set " +
+            QDateTime::currentDateTime().toString((Qt::ISODate)) +
+            " " +
+            QString::number(randomValue);
+    qDebug() << str;
+    qDebug() << socket->write(str.toStdString().c_str()) << " bytes written.";
+    this->ui->servers_lview->addItem(str);
+    this->ui->servers_lview->scrollToBottom();
+    if(socket->waitForBytesWritten(1.5*1000)){
+        qDebug() << "The data was written on socket.\n";
+    }else{
+        qDebug() << "Could not write data socket...\n";
+    }
 }
 
 void MainWindow::startSendingData(){
     if(this->isConnected()){
-//        this->ui->start_btn->setEnabled(false);
-//        this->ui->stop_btn->setEnabled(true);
+        this->ui->start_btn->setEnabled(false);
+        this->ui->stop_btn->setEnabled(true);
 
         srand(QTime::currentTime().elapsed());
-        int randomValue = qrand() % this->ui->max_slider->value() + this->ui->min_slider->value();
-
-        QString str;
-        str = "set " +
-                QDateTime::currentDateTime().toString((Qt::ISODate)) +
-                " " +
-                QString::number(randomValue);
-        qDebug() << str;
-        qDebug() << socket->write(str.toStdString().c_str()) << " bytes written.";
-        this->ui->servers_lview->addItem(str);
-        this->ui->servers_lview->scrollToBottom();
-        if(socket->waitForBytesWritten(3*1000)){
-            qDebug() << "The data was written on socket.";
-        }else{
-            qDebug() << "Could not write data socket...";
-        }
+        this->timer->start(this->ui->timing_slider->value()*1000);
     }
 }
 
 void MainWindow::stopSendingData(){
     if(this->isConnected() && this->socket->isOpen()){
+        this->timer->stop();
         this->ui->start_btn->setEnabled(true);
         this->ui->stop_btn->setEnabled(false);
     }
@@ -185,4 +188,13 @@ void MainWindow::changeMaxLCD(int value){
 
 void MainWindow::changeTimingOutput(int value){
     ui->timing_output->setText(QString::number(value) + "s");
+    if(this->timer != NULL){
+        this->timer->setInterval(value*1000);
+    }
+}
+
+MainWindow::~MainWindow(){
+    delete socket;
+    delete timer;
+    delete ui;
 }

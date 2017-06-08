@@ -5,6 +5,7 @@
 #include <QLCDNumber>
 #include <QTcpSocket>
 #include <QSlider>
+#include <QTimer>
 
 namespace Ui {
 class MainWindow;
@@ -28,6 +29,7 @@ public:
 public slots:
     void openConnection();
     void closeConnection();
+    void sendData();
     void startSendingData();
     void stopSendingData();
     void changeMinLCD(int);
@@ -38,6 +40,7 @@ public slots:
 private:
     Ui::MainWindow *ui;
     QTcpSocket *socket;
+    QTimer *timer;
     int slider_offset;
 };
 
