@@ -743,6 +743,33 @@ moc_mainwindow.cpp: /opt/Qt/5.8/gcc_64/include/QtWidgets/QMainWindow \
 		/opt/Qt/5.8/gcc_64/include/QtGui/qtouchdevice.h \
 		/opt/Qt/5.8/gcc_64/include/QtWidgets/qtabwidget.h \
 		/opt/Qt/5.8/gcc_64/include/QtGui/qicon.h \
+		/opt/Qt/5.8/gcc_64/include/QtNetwork/QTcpSocket \
+		/opt/Qt/5.8/gcc_64/include/QtNetwork/qtcpsocket.h \
+		/opt/Qt/5.8/gcc_64/include/QtNetwork/qtnetworkglobal.h \
+		/opt/Qt/5.8/gcc_64/include/QtNetwork/qtnetwork-config.h \
+		/opt/Qt/5.8/gcc_64/include/QtNetwork/qabstractsocket.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/QSlider \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qslider.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qabstractslider.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/QListWidget \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qlistwidget.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qlistview.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qabstractitemview.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qframe.h \
+		/opt/Qt/5.8/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/opt/Qt/5.8/gcc_64/include/QtCore/qitemselectionmodel.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qstyleoption.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		/opt/Qt/5.8/gcc_64/include/QtGui/qvalidator.h \
+		/opt/Qt/5.8/gcc_64/include/QtCore/qregularexpression.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qstyle.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qtabbar.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qrubberband.h \
+		/opt/Qt/5.8/gcc_64/include/QtCore/QTimer \
+		/opt/Qt/5.8/gcc_64/include/QtCore/qtimer.h \
+		/opt/Qt/5.8/gcc_64/include/QtCore/qbasictimer.h \
 		../QtClientConsumer/mainwindow.h \
 		moc_predefs.h \
 		/opt/Qt/5.8/gcc_64/bin/moc
@@ -872,6 +899,33 @@ main.o: ../QtClientConsumer/main.cpp ../QtClientConsumer/mainwindow.h \
 		/opt/Qt/5.8/gcc_64/include/QtGui/qtouchdevice.h \
 		/opt/Qt/5.8/gcc_64/include/QtWidgets/qtabwidget.h \
 		/opt/Qt/5.8/gcc_64/include/QtGui/qicon.h \
+		/opt/Qt/5.8/gcc_64/include/QtNetwork/QTcpSocket \
+		/opt/Qt/5.8/gcc_64/include/QtNetwork/qtcpsocket.h \
+		/opt/Qt/5.8/gcc_64/include/QtNetwork/qtnetworkglobal.h \
+		/opt/Qt/5.8/gcc_64/include/QtNetwork/qtnetwork-config.h \
+		/opt/Qt/5.8/gcc_64/include/QtNetwork/qabstractsocket.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/QSlider \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qslider.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qabstractslider.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/QListWidget \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qlistwidget.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qlistview.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qabstractitemview.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qframe.h \
+		/opt/Qt/5.8/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/opt/Qt/5.8/gcc_64/include/QtCore/qitemselectionmodel.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qstyleoption.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		/opt/Qt/5.8/gcc_64/include/QtGui/qvalidator.h \
+		/opt/Qt/5.8/gcc_64/include/QtCore/qregularexpression.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qstyle.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qtabbar.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qrubberband.h \
+		/opt/Qt/5.8/gcc_64/include/QtCore/QTimer \
+		/opt/Qt/5.8/gcc_64/include/QtCore/qtimer.h \
+		/opt/Qt/5.8/gcc_64/include/QtCore/qbasictimer.h \
 		/opt/Qt/5.8/gcc_64/include/QtWidgets/QApplication \
 		/opt/Qt/5.8/gcc_64/include/QtWidgets/qapplication.h \
 		/opt/Qt/5.8/gcc_64/include/QtCore/qcoreapplication.h \
@@ -986,6 +1040,33 @@ mainwindow.o: ../QtClientConsumer/mainwindow.cpp ../QtClientConsumer/mainwindow.
 		/opt/Qt/5.8/gcc_64/include/QtGui/qtouchdevice.h \
 		/opt/Qt/5.8/gcc_64/include/QtWidgets/qtabwidget.h \
 		/opt/Qt/5.8/gcc_64/include/QtGui/qicon.h \
+		/opt/Qt/5.8/gcc_64/include/QtNetwork/QTcpSocket \
+		/opt/Qt/5.8/gcc_64/include/QtNetwork/qtcpsocket.h \
+		/opt/Qt/5.8/gcc_64/include/QtNetwork/qtnetworkglobal.h \
+		/opt/Qt/5.8/gcc_64/include/QtNetwork/qtnetwork-config.h \
+		/opt/Qt/5.8/gcc_64/include/QtNetwork/qabstractsocket.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/QSlider \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qslider.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qabstractslider.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/QListWidget \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qlistwidget.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qlistview.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qabstractitemview.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qabstractscrollarea.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qframe.h \
+		/opt/Qt/5.8/gcc_64/include/QtCore/qabstractitemmodel.h \
+		/opt/Qt/5.8/gcc_64/include/QtCore/qitemselectionmodel.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qstyleoption.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		/opt/Qt/5.8/gcc_64/include/QtGui/qvalidator.h \
+		/opt/Qt/5.8/gcc_64/include/QtCore/qregularexpression.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qstyle.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qtabbar.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qrubberband.h \
+		/opt/Qt/5.8/gcc_64/include/QtCore/QTimer \
+		/opt/Qt/5.8/gcc_64/include/QtCore/qtimer.h \
+		/opt/Qt/5.8/gcc_64/include/QtCore/qbasictimer.h \
 		ui_mainwindow.h \
 		/opt/Qt/5.8/gcc_64/include/QtCore/QVariant \
 		/opt/Qt/5.8/gcc_64/include/QtWidgets/QAction \
@@ -1006,8 +1087,6 @@ mainwindow.o: ../QtClientConsumer/mainwindow.cpp ../QtClientConsumer/mainwindow.
 		/opt/Qt/5.8/gcc_64/include/QtGui/qtextoption.h \
 		/opt/Qt/5.8/gcc_64/include/QtGui/qpen.h \
 		/opt/Qt/5.8/gcc_64/include/QtWidgets/qscrollarea.h \
-		/opt/Qt/5.8/gcc_64/include/QtWidgets/qabstractscrollarea.h \
-		/opt/Qt/5.8/gcc_64/include/QtWidgets/qframe.h \
 		/opt/Qt/5.8/gcc_64/include/QtWidgets/qgraphicsscene.h \
 		/opt/Qt/5.8/gcc_64/include/QtWidgets/QHBoxLayout \
 		/opt/Qt/5.8/gcc_64/include/QtWidgets/qboxlayout.h \
@@ -1016,34 +1095,18 @@ mainwindow.o: ../QtClientConsumer/mainwindow.cpp ../QtClientConsumer/mainwindow.
 		/opt/Qt/5.8/gcc_64/include/QtWidgets/qgridlayout.h \
 		/opt/Qt/5.8/gcc_64/include/QtWidgets/QHeaderView \
 		/opt/Qt/5.8/gcc_64/include/QtWidgets/qheaderview.h \
-		/opt/Qt/5.8/gcc_64/include/QtWidgets/qabstractitemview.h \
-		/opt/Qt/5.8/gcc_64/include/QtCore/qabstractitemmodel.h \
-		/opt/Qt/5.8/gcc_64/include/QtCore/qitemselectionmodel.h \
-		/opt/Qt/5.8/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
-		/opt/Qt/5.8/gcc_64/include/QtWidgets/qstyleoption.h \
-		/opt/Qt/5.8/gcc_64/include/QtWidgets/qabstractspinbox.h \
-		/opt/Qt/5.8/gcc_64/include/QtGui/qvalidator.h \
-		/opt/Qt/5.8/gcc_64/include/QtCore/qregularexpression.h \
-		/opt/Qt/5.8/gcc_64/include/QtWidgets/qslider.h \
-		/opt/Qt/5.8/gcc_64/include/QtWidgets/qabstractslider.h \
-		/opt/Qt/5.8/gcc_64/include/QtWidgets/qstyle.h \
-		/opt/Qt/5.8/gcc_64/include/QtWidgets/qtabbar.h \
-		/opt/Qt/5.8/gcc_64/include/QtWidgets/qrubberband.h \
 		/opt/Qt/5.8/gcc_64/include/QtWidgets/QLabel \
 		/opt/Qt/5.8/gcc_64/include/QtWidgets/qlabel.h \
 		/opt/Qt/5.8/gcc_64/include/QtWidgets/QLineEdit \
 		/opt/Qt/5.8/gcc_64/include/QtWidgets/qlineedit.h \
 		/opt/Qt/5.8/gcc_64/include/QtGui/qtextcursor.h \
 		/opt/Qt/5.8/gcc_64/include/QtGui/qtextformat.h \
-		/opt/Qt/5.8/gcc_64/include/QtWidgets/QListView \
-		/opt/Qt/5.8/gcc_64/include/QtWidgets/qlistview.h \
 		/opt/Qt/5.8/gcc_64/include/QtWidgets/QMenuBar \
 		/opt/Qt/5.8/gcc_64/include/QtWidgets/qmenubar.h \
 		/opt/Qt/5.8/gcc_64/include/QtWidgets/qmenu.h \
 		/opt/Qt/5.8/gcc_64/include/QtWidgets/QPushButton \
 		/opt/Qt/5.8/gcc_64/include/QtWidgets/qpushbutton.h \
 		/opt/Qt/5.8/gcc_64/include/QtWidgets/qabstractbutton.h \
-		/opt/Qt/5.8/gcc_64/include/QtWidgets/QSlider \
 		/opt/Qt/5.8/gcc_64/include/QtWidgets/QSpacerItem \
 		/opt/Qt/5.8/gcc_64/include/QtWidgets/QStatusBar \
 		/opt/Qt/5.8/gcc_64/include/QtWidgets/qstatusbar.h \
@@ -1051,7 +1114,10 @@ mainwindow.o: ../QtClientConsumer/mainwindow.cpp ../QtClientConsumer/mainwindow.
 		/opt/Qt/5.8/gcc_64/include/QtWidgets/qtoolbar.h \
 		/opt/Qt/5.8/gcc_64/include/QtWidgets/QVBoxLayout \
 		/opt/Qt/5.8/gcc_64/include/QtWidgets/QWidget \
-		/opt/Qt/5.8/gcc_64/include/QtCore/QString
+		/opt/Qt/5.8/gcc_64/include/QtCore/QString \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/QMessageBox \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qmessagebox.h \
+		/opt/Qt/5.8/gcc_64/include/QtWidgets/qdialog.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../QtClientConsumer/mainwindow.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 

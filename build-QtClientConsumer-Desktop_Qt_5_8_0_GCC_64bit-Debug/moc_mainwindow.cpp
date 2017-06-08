@@ -106,7 +106,6 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 5: _t->startFetchingData(); break;
         case 6: _t->stopFetchingData(); break;
         case 7: _t->changeTimingOutput((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 8: _t->currentServerChanged((*reinterpret_cast< QListWidgetItem*(*)>(_a[1])),(*reinterpret_cast< QListWidgetItem*(*)>(_a[2]))); break;
         default: ;
         }
     }

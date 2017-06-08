@@ -48,6 +48,7 @@ MainWindow::MainWindow(QWidget *parent) :
             SIGNAL(clicked(bool)),
             this,
             SLOT(stopFetchingData()));
+
 }
 
 MainWindow::~MainWindow()
@@ -119,6 +120,7 @@ void MainWindow::openConnection(){
 
         QString fullServerPath(serverUrl + ":" + QString::number(port));
 
+        this->manageButtonsOnConnection();
         if(this->socket->waitForConnected(3*1000)){
             qDebug() << "Connected";
             this->updateServerList();
@@ -127,7 +129,6 @@ void MainWindow::openConnection(){
             qDebug() << "Could not connect";
             message = "Não foi possível estabelecer conexão com " + fullServerPath +  " ...";
         }
-        this->manageButtonsOnConnection();
     }else{
         message = "Insira uma URL para iniciar conexão...";
     }
@@ -142,16 +143,17 @@ void MainWindow::closeConnection(){
 }
 
 void MainWindow::updateServerList(){
-    QString str("list");
-    qDebug() << str;
-    if(this->writeOnSocket(str, 1.5)){
+    if(this->writeOnSocket("list", 1.5)){
         this->ui->server_lview->clear();
         while(socket->bytesAvailable()){
             this->ui->server_lview->addItem(socket->readLine().replace("\n", "").replace("\r", ""));
         }
-
-        if(this->ui->server_lview->count() > 0 && !this->ui->stop_btn->isEnabled()){
-            this->ui->start_btn->setEnabled(true);
+        if(this->ui->server_lview->count() > 0){
+            this->ui->server_lview->setCurrentRow(0);
+            if(!this->ui->stop_btn->isEnabled()){
+                qDebug() << "wtf";
+                this->ui->start_btn->setEnabled(true);
+            }
         }
     }else{
         this->displayMessageBox("Conexão não estabelecida...");
@@ -181,7 +183,7 @@ void MainWindow::fetchData(QString serverURL){
 }
 
 void MainWindow::startFetchingData(){
-    qDebug() << this->ui->server_lview->currentItem();
+    qDebug() << this->ui->server_lview->currentItem()->text();
     return;
     QString serverURL;
     serverURL = "get " +
@@ -208,4 +210,14 @@ void MainWindow::stopFetchingData(){
 
 void MainWindow::changeTimingOutput(int value){
     ui->timing_output->setText(QString::number(value+this->slider_offset) + "s");
+}
+
+void MainWindow::currentServerChanged(QListWidgetItem *current, QListWidgetItem *previous){
+    bool enabled = true;
+    qDebug() << current->text();
+    if(current->text().isEmpty() || current->text().contains("host")){
+        enabled = false;
+    }
+
+    this->ui->start_btn->setEnabled(enabled);
 }
