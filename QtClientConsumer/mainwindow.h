@@ -5,6 +5,7 @@
 #include <QTcpSocket>
 #include <QSlider>
 #include <QListWidget>
+#include <QTimer>
 
 namespace Ui {
 class MainWindow;
@@ -21,13 +22,16 @@ public:
     void initialSetup();
     void manageButtonsOnConnection();
     void setSliderDefaults(QSlider *);
+    void displayMessageBox(QString);
 
     ~MainWindow();
 
 public slots:
     void openConnection();
     void closeConnection();
+    bool writeOnSocket(QString, int);
     void updateServerList();
+    void fetchData(QString);
     void startFetchingData();
     void stopFetchingData();
     void changeTimingOutput(int);
@@ -36,6 +40,7 @@ public slots:
 private:
     Ui::MainWindow *ui;
     QTcpSocket *socket;
+    QTimer *timer;
     int slider_offset;
 };
 

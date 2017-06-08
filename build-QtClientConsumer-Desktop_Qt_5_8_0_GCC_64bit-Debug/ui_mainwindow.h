@@ -18,7 +18,7 @@
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
-#include <QtWidgets/QListView>
+#include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
@@ -47,7 +47,7 @@ public:
     QPushButton *connect_btn;
     QPushButton *disconnect_btn;
     QVBoxLayout *verticalLayout;
-    QListView *server_lview;
+    QListWidget *server_lview;
     QHBoxLayout *horizontalLayout_3;
     QSpacerItem *horizontalSpacer;
     QPushButton *update_btn;
@@ -129,7 +129,7 @@ public:
         verticalLayout = new QVBoxLayout();
         verticalLayout->setSpacing(6);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        server_lview = new QListView(centralWidget);
+        server_lview = new QListWidget(centralWidget);
         server_lview->setObjectName(QStringLiteral("server_lview"));
 
         verticalLayout->addWidget(server_lview);
