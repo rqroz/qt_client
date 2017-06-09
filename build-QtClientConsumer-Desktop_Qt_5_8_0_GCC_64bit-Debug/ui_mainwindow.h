@@ -13,7 +13,7 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
-#include <QtWidgets/QGraphicsView>
+#include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
@@ -28,6 +28,7 @@
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
+#include "plotterwidget.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -35,7 +36,6 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralWidget;
-    QHBoxLayout *horizontalLayout_7;
     QHBoxLayout *horizontalLayout_6;
     QVBoxLayout *verticalLayout_4;
     QVBoxLayout *verticalLayout_2;
@@ -59,7 +59,8 @@ public:
     QHBoxLayout *horizontalLayout_2;
     QPushButton *start_btn;
     QPushButton *stop_btn;
-    QGraphicsView *graph_obj;
+    PlotterWidget *plotter;
+    QGridLayout *gridLayout;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -71,12 +72,9 @@ public:
         MainWindow->resize(676, 517);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        horizontalLayout_7 = new QHBoxLayout(centralWidget);
-        horizontalLayout_7->setSpacing(6);
-        horizontalLayout_7->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout_7->setObjectName(QStringLiteral("horizontalLayout_7"));
-        horizontalLayout_6 = new QHBoxLayout();
+        horizontalLayout_6 = new QHBoxLayout(centralWidget);
         horizontalLayout_6->setSpacing(6);
+        horizontalLayout_6->setContentsMargins(11, 11, 11, 11);
         horizontalLayout_6->setObjectName(QStringLiteral("horizontalLayout_6"));
         verticalLayout_4 = new QVBoxLayout();
         verticalLayout_4->setSpacing(6);
@@ -86,6 +84,7 @@ public:
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
         server_label = new QLabel(centralWidget);
         server_label->setObjectName(QStringLiteral("server_label"));
+        server_label->setMinimumSize(QSize(216, 20));
 
         verticalLayout_2->addWidget(server_label);
 
@@ -117,6 +116,7 @@ public:
 
         disconnect_btn = new QPushButton(centralWidget);
         disconnect_btn->setObjectName(QStringLiteral("disconnect_btn"));
+        disconnect_btn->setMinimumSize(QSize(104, 28));
 
         horizontalLayout->addWidget(disconnect_btn);
 
@@ -131,6 +131,7 @@ public:
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         server_lview = new QListWidget(centralWidget);
         server_lview->setObjectName(QStringLiteral("server_lview"));
+        server_lview->setMinimumSize(QSize(216, 198));
 
         verticalLayout->addWidget(server_lview);
 
@@ -199,14 +200,15 @@ public:
 
         horizontalLayout_6->addLayout(verticalLayout_4);
 
-        graph_obj = new QGraphicsView(centralWidget);
-        graph_obj->setObjectName(QStringLiteral("graph_obj"));
-        graph_obj->setMinimumSize(QSize(430, 430));
+        plotter = new PlotterWidget(centralWidget);
+        plotter->setObjectName(QStringLiteral("plotter"));
+        plotter->setMinimumSize(QSize(421, 431));
+        gridLayout = new QGridLayout(plotter);
+        gridLayout->setSpacing(6);
+        gridLayout->setContentsMargins(11, 11, 11, 11);
+        gridLayout->setObjectName(QStringLiteral("gridLayout"));
 
-        horizontalLayout_6->addWidget(graph_obj);
-
-
-        horizontalLayout_7->addLayout(horizontalLayout_6);
+        horizontalLayout_6->addWidget(plotter);
 
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);

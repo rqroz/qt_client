@@ -166,22 +166,6 @@ bool MainWindow::writeOnSocket(QString str, int timeoutInterval){
 }
 
 
-void MainWindow::displayData(QStringList &data){
-    QStringList tmp;
-    QDateTime dt;
-    int value;
-    foreach (const QString &str, data) {
-        tmp = str.split(" ");
-        if(tmp.size() == 2){
-            dt.fromString(tmp.at(0), Qt::ISODate);
-            value = tmp.at(1).toInt();
-            qDebug() << tmp.at(0);
-            qDebug() << "Date: " << dt.currentSecsSinceEpoch() << " | value: " << value << "\n";
-        }
-    }
-}
-
-
 void MainWindow::fetchData(){
     if(this->currentGet.isEmpty()){
         this->stopFetchingData();
@@ -196,12 +180,15 @@ void MainWindow::fetchData(){
             while(socket->bytesAvailable()){
                 data.append(socket->readLine().replace("\n", "").replace("\r", ""));
             }
-            this->displayData(data);
+
+            this->ui->plotter->setData(data);
+            this->ui->plotter->repaint();
         }else{
             this->stopFetchingData();
             this->displayMessageBox("Conexão não pôde estabelecida...");
         }
     }
+
 }
 
 void MainWindow::startFetchingData(){

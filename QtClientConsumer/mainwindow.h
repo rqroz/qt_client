@@ -23,7 +23,6 @@ public:
     void initialSetup();
     void manageButtonsOnConnection();
     void displayMessageBox(QString);
-    void displayData(QStringList &);
 
     ~MainWindow();
 
