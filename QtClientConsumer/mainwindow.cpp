@@ -24,11 +24,6 @@ MainWindow::MainWindow(QWidget *parent) :
             this,
             SLOT(closeConnection()));
 
-//    connect(ui->server_lview,
-//            SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)),
-//            this,
-//            SLOT(changeTimingOutput(QListWidgetItem*,QListWidgetItem*)));
-
     connect(ui->update_btn,
             SIGNAL(clicked(bool)),
             this,
@@ -63,11 +58,6 @@ bool MainWindow::isConnected(){
     return this->socket->state() == QAbstractSocket::ConnectedState;
 }
 
-void MainWindow::setSliderDefaults(QSlider *qsl){
-    qsl->setMinimum(this->slider_offset);
-    qsl->setMaximum(qsl->maximum()+this->slider_offset);
-}
-
 void MainWindow::displayMessageBox(QString message){
     QMessageBox mb;
     mb.setText(message);
@@ -98,12 +88,12 @@ void MainWindow::initialSetup(){
     this->ui->port_input->setPlaceholderText("port");
     this->ui->port_input->setText("1234");
 
-    this->setSliderDefaults(this->ui->timing_slider);
+    this->ui->timing_slider->setMinimum(5);
+    this->ui->timing_slider->setMaximum(this->ui->timing_slider->maximum()+this->slider_offset);
     this->changeTimingOutput(this->ui->timing_slider->value());
 
     this->ui->server_lview->setSpacing(2);
 
-    this->changeTimingOutput(this->slider_offset);
     this->manageButtonsOnConnection();
 }
 
@@ -120,9 +110,9 @@ void MainWindow::openConnection(){
 
         QString fullServerPath(serverUrl + ":" + QString::number(port));
 
-        this->manageButtonsOnConnection();
         if(this->socket->waitForConnected(3*1000)){
             qDebug() << "Connected";
+            this->manageButtonsOnConnection();
             this->updateServerList();
             message = "Conexão com " + fullServerPath + " estabelecida.";
         }else{
@@ -145,13 +135,17 @@ void MainWindow::closeConnection(){
 void MainWindow::updateServerList(){
     if(this->writeOnSocket("list", 1.5)){
         this->ui->server_lview->clear();
+        QStringList server_list;
         while(socket->bytesAvailable()){
-            this->ui->server_lview->addItem(socket->readLine().replace("\n", "").replace("\r", ""));
+            server_list.append(socket->readLine().replace("\n", "").replace("\r", ""));
         }
+        server_list.removeDuplicates();
+
+        this->ui->server_lview->addItems(server_list);
+
         if(this->ui->server_lview->count() > 0){
             this->ui->server_lview->setCurrentRow(0);
-            if(!this->ui->stop_btn->isEnabled()){
-                qDebug() << "wtf";
+            if(!this->ui->stop_btn->isEnabled() && !this->ui->server_lview->currentItem()->text().contains("host")){
                 this->ui->start_btn->setEnabled(true);
             }
         }
@@ -170,54 +164,66 @@ bool MainWindow::writeOnSocket(QString str, int timeoutInterval){
     return false;
 }
 
-void MainWindow::fetchData(QString serverURL){
-    if(this->writeOnSocket(serverURL, 1.5)){
-        int index = 0;
-        while(socket->bytesAvailable()){
-            qDebug() << index << ": " << socket->readLine().replace("\n", "").replace("\r", "");
-            index++;
+
+void MainWindow::displayData(){
+    QStringList tmp;
+//    QDateTime dt;
+    int value;
+    foreach (const QString &str, this->data) {
+        tmp = str.split(" ");
+        if(tmp.size() == 2){
+            //dt.fromString(tmp.at(0), Qt::ISODate);
+            value = tmp.at(1).toInt();
+            //dt.toString("dd/MM/yyyy")
+            qDebug() << "Date: " << tmp.at(0) << " | value: " << value;
         }
-    }else{
-        this->displayMessageBox("Conexão não estabelecida...");
     }
 }
 
+
 void MainWindow::startFetchingData(){
-    qDebug() << this->ui->server_lview->currentItem()->text();
-    return;
-    QString serverURL;
-    serverURL = "get " +
-            QString::number(1) +
-            "\r\n";
+    QString serverURL = this->ui->server_lview->currentItem()->text();
+    if(!serverURL.isEmpty() && !serverURL.contains("host")){
+        this->ui->start_btn->setEnabled(false);
+        this->ui->stop_btn->setEnabled(true);
 
-    this->ui->start_btn->setEnabled(false);
-    this->ui->stop_btn->setEnabled(true);
+        QString cmd = "get " + this->ui->server_lview->currentItem()->text() + "\r\n";
+        qDebug() << "Server cmd: " << cmd;
+        if(this->writeOnSocket(cmd, 1.5)){
+            qDebug() << "wrote on socket";
+            qDebug() << "bytes available: " << socket->bytesAvailable();
+            while(socket->bytesAvailable()){
+                this->data.append(socket->readLine().replace("\n", "").replace("\r", ""));
+            }
 
-    connect(this->timer,
-            SIGNAL(timeout()),
-            this,
-            SLOT(fetchData(serverURL)));
-    this->timer->start(this->ui->timing_slider->value()*1000);
+            connect(this->timer,
+                    SIGNAL(timeout()),
+                    this,
+                    SLOT(displayData()));
 
+            this->timer->start(this->ui->timing_slider->value()*1000);
+        }else{
+            this->displayMessageBox("Conexão não pôde estabelecida...");
+            return;
+        }
+    }else{
+        this->displayMessageBox("Selecione um servidor para conectar.");
+    }
 }
 
 void MainWindow::stopFetchingData(){
     this->timer->stop();
+    this->data.clear();
     this->ui->start_btn->setEnabled(true);
     this->ui->stop_btn->setEnabled(false);
 }
 
 
 void MainWindow::changeTimingOutput(int value){
-    ui->timing_output->setText(QString::number(value+this->slider_offset) + "s");
-}
+    ui->timing_output->setText(QString::number(value) + "s");
 
-void MainWindow::currentServerChanged(QListWidgetItem *current, QListWidgetItem *previous){
-    bool enabled = true;
-    qDebug() << current->text();
-    if(current->text().isEmpty() || current->text().contains("host")){
-        enabled = false;
+    if(this->timer->isActive()){
+        this->timer->setInterval(value);
     }
-
-    this->ui->start_btn->setEnabled(enabled);
 }
+
