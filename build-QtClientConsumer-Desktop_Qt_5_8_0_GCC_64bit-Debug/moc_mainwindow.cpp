@@ -22,7 +22,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_MainWindow_t {
     QByteArrayData data[10];
-    char stringdata0[140];
+    char stringdata0[138];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -32,21 +32,21 @@ struct qt_meta_stringdata_MainWindow_t {
 static const qt_meta_stringdata_MainWindow_t qt_meta_stringdata_MainWindow = {
     {
 QT_MOC_LITERAL(0, 0, 10), // "MainWindow"
-QT_MOC_LITERAL(1, 11, 11), // "displayData"
-QT_MOC_LITERAL(2, 23, 0), // ""
-QT_MOC_LITERAL(3, 24, 14), // "openConnection"
-QT_MOC_LITERAL(4, 39, 15), // "closeConnection"
-QT_MOC_LITERAL(5, 55, 13), // "writeOnSocket"
-QT_MOC_LITERAL(6, 69, 16), // "updateServerList"
-QT_MOC_LITERAL(7, 86, 17), // "startFetchingData"
-QT_MOC_LITERAL(8, 104, 16), // "stopFetchingData"
-QT_MOC_LITERAL(9, 121, 18) // "changeTimingOutput"
+QT_MOC_LITERAL(1, 11, 14), // "openConnection"
+QT_MOC_LITERAL(2, 26, 0), // ""
+QT_MOC_LITERAL(3, 27, 15), // "closeConnection"
+QT_MOC_LITERAL(4, 43, 13), // "writeOnSocket"
+QT_MOC_LITERAL(5, 57, 16), // "updateServerList"
+QT_MOC_LITERAL(6, 74, 9), // "fetchData"
+QT_MOC_LITERAL(7, 84, 17), // "startFetchingData"
+QT_MOC_LITERAL(8, 102, 16), // "stopFetchingData"
+QT_MOC_LITERAL(9, 119, 18) // "changeTimingOutput"
 
     },
-    "MainWindow\0displayData\0\0openConnection\0"
-    "closeConnection\0writeOnSocket\0"
-    "updateServerList\0startFetchingData\0"
-    "stopFetchingData\0changeTimingOutput"
+    "MainWindow\0openConnection\0\0closeConnection\0"
+    "writeOnSocket\0updateServerList\0fetchData\0"
+    "startFetchingData\0stopFetchingData\0"
+    "changeTimingOutput"
 };
 #undef QT_MOC_LITERAL
 
@@ -66,8 +66,8 @@ static const uint qt_meta_data_MainWindow[] = {
  // slots: name, argc, parameters, tag, flags
        1,    0,   54,    2, 0x0a /* Public */,
        3,    0,   55,    2, 0x0a /* Public */,
-       4,    0,   56,    2, 0x0a /* Public */,
-       5,    2,   57,    2, 0x0a /* Public */,
+       4,    2,   56,    2, 0x0a /* Public */,
+       5,    0,   61,    2, 0x0a /* Public */,
        6,    0,   62,    2, 0x0a /* Public */,
        7,    0,   63,    2, 0x0a /* Public */,
        8,    0,   64,    2, 0x0a /* Public */,
@@ -76,8 +76,8 @@ static const uint qt_meta_data_MainWindow[] = {
  // slots: parameters
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void,
     QMetaType::Bool, QMetaType::QString, QMetaType::Int,    2,    2,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -92,12 +92,12 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         MainWindow *_t = static_cast<MainWindow *>(_o);
         Q_UNUSED(_t)
         switch (_id) {
-        case 0: _t->displayData(); break;
-        case 1: _t->openConnection(); break;
-        case 2: _t->closeConnection(); break;
-        case 3: { bool _r = _t->writeOnSocket((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])));
+        case 0: _t->openConnection(); break;
+        case 1: _t->closeConnection(); break;
+        case 2: { bool _r = _t->writeOnSocket((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])));
             if (_a[0]) *reinterpret_cast< bool*>(_a[0]) = _r; }  break;
-        case 4: _t->updateServerList(); break;
+        case 3: _t->updateServerList(); break;
+        case 4: _t->fetchData(); break;
         case 5: _t->startFetchingData(); break;
         case 6: _t->stopFetchingData(); break;
         case 7: _t->changeTimingOutput((*reinterpret_cast< int(*)>(_a[1]))); break;

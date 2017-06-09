@@ -23,15 +23,16 @@ public:
     void initialSetup();
     void manageButtonsOnConnection();
     void displayMessageBox(QString);
+    void displayData(QStringList &);
 
     ~MainWindow();
 
 public slots:
-    void displayData();
     void openConnection();
     void closeConnection();
     bool writeOnSocket(QString, int);
     void updateServerList();
+    void fetchData();
     void startFetchingData();
     void stopFetchingData();
     void changeTimingOutput(int);
@@ -40,8 +41,7 @@ private:
     Ui::MainWindow *ui;
     QTcpSocket *socket;
     QTimer *timer;
-    int slider_offset;
-    QStringList data;
+    QString currentGet;
 };
 
 

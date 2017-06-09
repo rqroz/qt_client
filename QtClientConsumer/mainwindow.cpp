@@ -80,7 +80,6 @@ void MainWindow::manageButtonsOnConnection(){
 }
 
 void MainWindow::initialSetup(){
-    this->slider_offset = 1;
     this->timer = new QTimer(this);
     this->socket = new QTcpSocket(this);
 
@@ -89,8 +88,8 @@ void MainWindow::initialSetup(){
     this->ui->port_input->setPlaceholderText("port");
     this->ui->port_input->setText("1234");
 
-    this->ui->timing_slider->setMinimum(5);
-    this->ui->timing_slider->setMaximum(this->ui->timing_slider->maximum()+this->slider_offset);
+    this->ui->timing_slider->setMinimum(3);
+    this->ui->timing_slider->setMaximum(100);
     this->changeTimingOutput(this->ui->timing_slider->value());
 
     this->ui->server_lview->setSpacing(2);
@@ -155,6 +154,7 @@ void MainWindow::updateServerList(){
     }
 }
 
+
 bool MainWindow::writeOnSocket(QString str, int timeoutInterval){
     if(this->isConnected()){
         socket->write(str.toStdString().c_str());
@@ -166,47 +166,57 @@ bool MainWindow::writeOnSocket(QString str, int timeoutInterval){
 }
 
 
-void MainWindow::displayData(){
+void MainWindow::displayData(QStringList &data){
     QStringList tmp;
     QDateTime dt;
     int value;
-    foreach (const QString &str, this->data) {
+    foreach (const QString &str, data) {
         tmp = str.split(" ");
         if(tmp.size() == 2){
             dt.fromString(tmp.at(0), Qt::ISODate);
             value = tmp.at(1).toInt();
-
-            qDebug() << "Date: " << dt.toString("dd/MM/yyyy") << " | value: " << value;
+            qDebug() << tmp.at(0);
+            qDebug() << "Date: " << dt.currentSecsSinceEpoch() << " | value: " << value << "\n";
         }
     }
 }
 
+
+void MainWindow::fetchData(){
+    if(this->currentGet.isEmpty()){
+        this->stopFetchingData();
+        this->displayMessageBox("Servidor não identificado");
+    }else{
+        QString cmd = "get " + this->currentGet + "\r\n";
+        qDebug() << "Server cmd: " << cmd;
+        QStringList data;
+        if(this->writeOnSocket(cmd, 1.5)){
+            qDebug() << "wrote on socket";
+            qDebug() << "bytes available: " << socket->bytesAvailable();
+            while(socket->bytesAvailable()){
+                data.append(socket->readLine().replace("\n", "").replace("\r", ""));
+            }
+            this->displayData(data);
+        }else{
+            this->stopFetchingData();
+            this->displayMessageBox("Conexão não pôde estabelecida...");
+        }
+    }
+}
 
 void MainWindow::startFetchingData(){
     QString serverURL = this->ui->server_lview->currentItem()->text();
     if(!serverURL.isEmpty() && !serverURL.contains("host")){
         this->ui->start_btn->setEnabled(false);
         this->ui->stop_btn->setEnabled(true);
+        this->currentGet = serverURL;
 
-        QString cmd = "get " + this->ui->server_lview->currentItem()->text() + "\r\n";
-        qDebug() << "Server cmd: " << cmd;
-        if(this->writeOnSocket(cmd, 1.5)){
-            qDebug() << "wrote on socket";
-            qDebug() << "bytes available: " << socket->bytesAvailable();
-            while(socket->bytesAvailable()){
-                this->data.append(socket->readLine().replace("\n", "").replace("\r", ""));
-            }
+        connect(this->timer,
+                SIGNAL(timeout()),
+                this,
+                SLOT(fetchData()));
 
-            connect(this->timer,
-                    SIGNAL(timeout()),
-                    this,
-                    SLOT(displayData()));
-
-            this->timer->start(this->ui->timing_slider->value()*1000);
-        }else{
-            this->displayMessageBox("Conexão não pôde estabelecida...");
-            return;
-        }
+        this->timer->start(this->ui->timing_slider->value()*1000);
     }else{
         this->displayMessageBox("Selecione um servidor para conectar.");
     }
@@ -214,7 +224,7 @@ void MainWindow::startFetchingData(){
 
 void MainWindow::stopFetchingData(){
     this->timer->stop();
-    this->data.clear();
+    this->currentGet.clear();
     this->ui->start_btn->setEnabled(true);
     this->ui->stop_btn->setEnabled(false);
 }
