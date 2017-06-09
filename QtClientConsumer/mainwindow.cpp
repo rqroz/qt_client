@@ -5,6 +5,7 @@
 #include <QMessageBox>
 #include <QListWidget>
 #include <QTimer>
+#include <QDateTime>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -167,15 +168,15 @@ bool MainWindow::writeOnSocket(QString str, int timeoutInterval){
 
 void MainWindow::displayData(){
     QStringList tmp;
-//    QDateTime dt;
+    QDateTime dt;
     int value;
     foreach (const QString &str, this->data) {
         tmp = str.split(" ");
         if(tmp.size() == 2){
-            //dt.fromString(tmp.at(0), Qt::ISODate);
+            dt.fromString(tmp.at(0), Qt::ISODate);
             value = tmp.at(1).toInt();
-            //dt.toString("dd/MM/yyyy")
-            qDebug() << "Date: " << tmp.at(0) << " | value: " << value;
+
+            qDebug() << "Date: " << dt.toString("dd/MM/yyyy") << " | value: " << value;
         }
     }
 }
