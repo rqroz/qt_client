@@ -75,12 +75,11 @@ void MainWindow::styleLCD(QLCDNumber *lcd){
 }
 
 void MainWindow::setSliderDefaults(QSlider *qsl){
-    qsl->setMinimum(this->slider_offset);
-    qsl->setMaximum(qsl->maximum()+this->slider_offset);
+    qsl->setMinimum(1);
+    qsl->setMaximum(100);
 }
 
 void MainWindow::initialSetup(){
-    this->slider_offset = 1;
     this->timer = new QTimer(this);
     this->socket = new QTcpSocket(this);
 

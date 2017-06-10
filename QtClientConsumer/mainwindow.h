@@ -8,7 +8,7 @@
 
 /**
  * @date June 9th, 2017
- * @brief Main UI used in this project
+ * @brief Main UI used to fetch data from a server
  * @details MainWindow holds all of the QWidgets and actions enabled via user-interaction (signals)
  */
 
