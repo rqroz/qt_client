@@ -1,10 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QString>
-#include <QTcpSocket>
 #include <QMessageBox>
-#include <QListWidget>
-#include <QTimer>
 #include <QDateTime>
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -44,6 +41,11 @@ MainWindow::MainWindow(QWidget *parent) :
             SIGNAL(clicked(bool)),
             this,
             SLOT(stopFetchingData()));
+
+    connect(this->timer,
+            SIGNAL(timeout()),
+            this,
+            SLOT(fetchData()));
 
 }
 
@@ -111,12 +113,10 @@ void MainWindow::openConnection(){
         QString fullServerPath(serverUrl + ":" + QString::number(port));
 
         if(this->socket->waitForConnected(3*1000)){
-            qDebug() << "Connected";
             this->manageButtonsOnConnection();
             this->updateServerList();
             message = "Conexão com " + fullServerPath + " estabelecida.";
         }else{
-            qDebug() << "Could not connect";
             message = "Não foi possível estabelecer conexão com " + fullServerPath +  " ...";
         }
     }else{
@@ -129,7 +129,6 @@ void MainWindow::openConnection(){
 void MainWindow::closeConnection(){
     this->socket->close();
     this->manageButtonsOnConnection();
-    qDebug() << "Disconnected";
 }
 
 void MainWindow::updateServerList(){
@@ -154,17 +153,14 @@ void MainWindow::updateServerList(){
     }
 }
 
-
 bool MainWindow::writeOnSocket(QString str, int timeoutInterval){
     if(this->isConnected()){
         socket->write(str.toStdString().c_str());
         socket->waitForBytesWritten(timeoutInterval*1000);
-        socket->waitForReadyRead(timeoutInterval*1000);
-        return true;
+        return socket->waitForReadyRead(timeoutInterval*1000);
     }
     return false;
 }
-
 
 void MainWindow::fetchData(){
     if(this->currentGet.isEmpty()){
@@ -172,17 +168,14 @@ void MainWindow::fetchData(){
         this->displayMessageBox("Servidor não identificado");
     }else{
         QString cmd = "get " + this->currentGet + "\r\n";
-        qDebug() << "Server cmd: " << cmd;
         QStringList data;
+
         if(this->writeOnSocket(cmd, 1.5)){
-            qDebug() << "wrote on socket";
-            qDebug() << "bytes available: " << socket->bytesAvailable();
             while(socket->bytesAvailable()){
                 data.append(socket->readLine().replace("\n", "").replace("\r", ""));
             }
 
             this->ui->plotter->setData(data);
-            this->ui->plotter->repaint();
         }else{
             this->stopFetchingData();
             this->displayMessageBox("Conexão não pôde estabelecida...");
@@ -197,11 +190,6 @@ void MainWindow::startFetchingData(){
         this->ui->start_btn->setEnabled(false);
         this->ui->stop_btn->setEnabled(true);
         this->currentGet = serverURL;
-
-        connect(this->timer,
-                SIGNAL(timeout()),
-                this,
-                SLOT(fetchData()));
 
         this->timer->start(this->ui->timing_slider->value()*1000);
     }else{
